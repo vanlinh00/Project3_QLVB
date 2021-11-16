@@ -25,10 +25,10 @@ User.get_all = () => {
     }));
 };
 
-User.checkphone = (phoneNumber) => {
+User.checkgmail_user = (gamil) => {
     return new Promise((async (resolve, reject) => {
         try {
-            db.query('SELECT * FROM user WHERE sdt_user = ?', phoneNumber, (err, res) => {
+            db.query('SELECT * FROM user WHERE gmail_user = ?', gamil, (err, res) => {
                 if (err) {
                     console.log('Error check phone number', err);
                     result(err, null);

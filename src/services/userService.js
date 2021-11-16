@@ -18,10 +18,10 @@ let getalluser = () => {
 };
 
 
-let checkuserlogin = async function (phoneNumber) {
+let checkuserlogin = async function (gmail_user) {
     return new Promise((async (resolve, reject) => {
         try {
-            let data = await User.checkphone(phoneNumber);
+            let data = await User.checkgmail_user(gmail_user);
             resolve(data);
 
         } catch (e) {

@@ -6,6 +6,7 @@ var connection= mysql.createConnection({
     password: '',
     database: 'qlvb'
 });
+
 connection.connect(function(err, connection){
    if(err){console.log("net noi databae khong thanh cong")};
 });
