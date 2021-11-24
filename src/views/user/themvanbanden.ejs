@@ -1,0 +1,87 @@
+<% extend("../mainuser.ejs") %>
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Văn Bản Đến</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Văn bản đến</li>
+            <li class="breadcrumb-item active">Thêm Văn bản đến</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card card-danger">
+        <div class="card-header ">
+          <h3 class="card-title ">Nhập thông tin văn bản</h3>
+        </div>
+        <div class="card-body">
+
+          <form role="form" method="post" action="/vanthu/themvanbanden" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col">
+                <h3 class="card-title">Tên Văn Bản: </h3>
+
+                <input type="text" class="form-control" id="namefiletext" placeholder="Nhập tên văn bản"
+                  name="tenvb">
+              </div>
+              <div class="col">
+                <h3 class="card-title">Người gửi đến:</h3>
+                <input type="text" class="form-control" placeholder="Nhập người gửi" name="nguoiguiden">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col">
+
+                <h3 class="card-title">Nơi gửi đến:</h3>
+                <input type="text" class="form-control" placeholder="Nhập nơi gửi đến" name="noiguiden">
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <h3 class="card-title">Ngày gửi đến:</h3>
+                  <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" name="ngayguiden"/>
+                    <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="row mt-3">
+              <div class="col">
+                <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+              </div>
+              <div class="col">
+                <input type="password" class="form-control" placeholder="Enter password" name="pswd">
+              </div>
+            </div> -->
+
+            <div class="form-group">
+              <label for="exampleInputFile">File input</label>
+              <div class="input-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="exampleInputFile" name="profile" accept="">
+                  <!-- <input class="form-control" /> -->
+                  <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                  <span class="input-group-text">Upload</span>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,75 @@
+<% extend("../mainuser.ejs") %>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">VĂN BẢN CHỜ PHÊ DUYỆT</h3>
+            </div>
+
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>TÊN VĂN BẢN</th>
+                    <th>NGƯỜI GỬI ĐẾN</th>
+                    <th>NƠI GỬI ĐẾN</th>
+                    <th>NGÀY GỬI ĐẾN</th>
+                    <th>PHÂN LOẠI</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <% if(alldatavb.length!=0){ 
+                    var i=1;
+                    alldatavb.forEach(function(data){ %>
+                    <tr>
+                      <td>
+                        <%=i%>
+                      </td>
+                      <td>
+                        <%=data.tenvb %>
+                      </td>
+                      <td>
+                        <%=data.nguoiguiden %>
+                      </td>
+                      <td>
+                        <%=data.noiguiden %>
+                      </td>
+                      <td>
+                        <%=data.ngayguiden %>
+                      </td>
+                      <td>
+                        <a href="/vanbanden/vanbanchophanloai/phanloai?id=<%=data.id%>" class="edit" title="Edit" data-toggle="tooltip"><i
+                            class="material-icons"></i>Xem và phân loại</a>
+
+                      </td>
+
+
+                    </tr>
+                    <% i++; }) %>
+                      <% } else{ %>
+                        <tr>
+                          <td colspan="8">No Data Found</td>
+                        </tr>
+                        <% } %>
+
+                </tbody>
+                </tbody>
+
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>

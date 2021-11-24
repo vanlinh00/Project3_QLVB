@@ -1,12 +1,108 @@
 import express from "express";
+import { isBuffer } from "util";
 import homeController from "../controllers/homeController";
+import vanbandenController from "../controllers/vanbandenController";
+
+import adminController from "../controllers/adminController";
+
+var UserService = require('../services/userService');
+
 const db = require('../config/database.config');
 var multer = require('multer');
 const DIR = './uploads';
 let router = express.Router();
 const path = require('path');
 
+//moi them
+const passport = require('passport')
+const flash = require('express-flash')
+const session = require('express-session')
+const methodOverride = require('method-override')
+
+const initializePassport = require('../config/passport-config')
+
+
+initializePassport(
+  passport,
+  email => users.find(user => user.email === email),
+  id => users.find(user => user.id === id)
+)
+
+const users = []
+
 let initWebRoutes = (app) => {
+
+  app.use(flash())
+  app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+  }))
+  app.use(passport.initialize())
+  app.use(passport.session())
+  app.use(methodOverride('_method'))
+
+  app.get('/login', checkNotAuthenticated, homeController.login)
+
+  app.post('/login', checkNotAuthenticated, passport.authenticate('local', {
+    successRedirect: '/trangchu',
+    failureRedirect: '/login',
+    failureFlash: true
+  }))
+
+  app.get('/register', checkNotAuthenticated, (req, res) => {
+    res.render('testlogin/register.ejs')
+  })
+
+  app.post('/register', checkNotAuthenticated, async (req, res) => {
+    try {
+      users.push({
+        id: Date.now().toString(),
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password 
+      })
+      res.redirect('/login')
+    } catch {
+      res.redirect('/register')
+    }
+  })
+
+  app.get('/getalluser', async (req, res) => {
+    var alluser = await UserService.getalluser();
+    if (users.length == 0) {
+      for (let i = 0; i < alluser.length; i++) {
+        users.push(alluser[i]);
+      }
+    }
+    else {
+      console.log("getalluserok");
+    }
+    //console.log(alluser);
+    res.send(users);
+    // console.log(users);
+  })
+
+  app.delete('/logout', (req, res) => {
+    req.logOut()
+    res.redirect('/login')
+  })
+
+  function checkAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return next()
+    }
+
+    res.redirect('/login')
+  }
+
+  function checkNotAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
+      return res.redirect('/trangchu')
+    }
+    next()
+  }
+/*  trên là  phần authentication */
 
   let storage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -19,17 +115,34 @@ let initWebRoutes = (app) => {
 
   let upload = multer({ storage: storage });
 
-  // login
-  router.get('/login', homeController.login);
-  router.post('/login', homeController.loginuser);
 
-  router.get('/trangchu', homeController.trangchu);
+/* phần user*/
 
-  router.get('/vanthu/themvanbanden', homeController.themvanbanden);
-  router.post('/vanthu/themvanbanden', upload.single('profile'), homeController.themvanbandentc);
+/*phần trang chủ*/
+  router.get('/trangchu', checkAuthenticated, homeController.trangchu);
 
-  router.get('/vanthu/vanbanchuaduyet', homeController.vanbanchuaduyet);
-  router.get('/vanbanden/xemchitiet', homeController.vbdxemchitiet);
+/* phần văn bản đến*/
+  router.get('/vanthu/themvanbanden',checkAuthenticated, vanbandenController.themvanbanden);
+  router.post('/vanthu/themvanbanden',checkAuthenticated, upload.single('profile'), vanbandenController.themvanbandentc);
+  
+  router.get('/vanbanden/vanbanchophanloai',checkAuthenticated, vanbandenController.vanbanchophanloai);
+ 
+  router.get('/vanbanden/vanbanchophanloai/phanloai',checkAuthenticated, vanbandenController.vanbanchophanloaiphanloai);
+
+  // router.get('/vanthu/vanbanchuaduyet', homeController.vanbanchuaduyet);
+  // router.get('/vanbanden/xemchitiet', homeController.vbdxemchitiet);
+
+
+
+/* phần admin */
+  
+  router.get('/admin', adminController.admin);
+  router.get('/admin/getalluser', adminController.admingetalluser);
+  router.get('/admin/users/edit', adminController.adminedituser);
+  router.get('/admin/users/view', adminController.adminviewuer);
+  router.get('/admin/users/delete', adminController.admindeleteuser);
+
+
   return app.use("/", router);
 }
 
