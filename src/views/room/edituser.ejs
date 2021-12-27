@@ -1,0 +1,141 @@
+<% extend("../mainuser.ejs") %>
+  <!-- 
+  <script>
+    var getTest = "<%= mes  %>";
+    if (getTest.length != 0) {
+      alert(getTest);  // successfully prints the string on browser
+    }
+  </script> -->
+
+  <script>
+    //var a = 0;
+    var getTest = "<%= mes  %>";
+
+    if (getTest.length != 0) {
+      $(document).ready(function () {
+        $("#myModal").modal('show');
+
+      });
+    }
+  </script>
+
+  <style>
+    .bs-example {
+      margin: 20px;
+    }
+  </style>
+
+
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Chỉnh sửa thông tin cán bộ</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Quản lý phòng ban</a></li>
+            <li class="breadcrumb-item"><a href="#">Chỉnh sửa thông tin cán bộ</a></li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <section class="content">
+    <div class="container-fluid">
+     
+      <div class="card card-danger edituserclass">
+      
+
+            <div class="card-header ">
+                <h3 class="card-title">Thông Tin Cán Bộ</h3>
+
+            </div>
+            <div class="card-body">
+                <form role="form" method="post" action="/phongban/themuservaophong">
+                    <div class="row mt-4">
+                        <div class="col ">
+                            <h3 class="card-title">Họ Và Tên</h3>
+                            <input type="text" class="form-control" id="namefiletext"
+                                placeholder="Nhập họ và tên" name="ho_ten">
+                        </div>
+                        <div class="col">
+                            <h3 class="card-title">Địa Trỉ</h3>
+                            <input type="text" class="form-control" placeholder="Nhập địa chỉ" name="dia_chi">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col mt-1">
+                            <h3 class="card-title">Ngày Sinh</h3>
+                            <input type="text" class="form-control" placeholder="Nhập ngày sinh"
+                                name="ngay_sinh">
+                        </div>
+
+                        <div class="form-group col ">
+                            <h3 class="card-title">Gới Tính</h3>
+                            <select class="custom-select form-control-border" name="goi_tinh" id="goi_tinh">
+                                <option>Nam</option>
+                                <option>Nữ</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col ">
+                            <h3 class="card-title">Email</h3>
+                            <input type="text" class="form-control" id="namefiletext"
+                                placeholder="Nhập Email" name="email">
+                        </div>
+                        <div class="col">
+                            <h3 class="card-title">Mật khẩu</h3>
+                            <input type="text" class="form-control" placeholder="Nhập mật khẩu" name="password">
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col mt-2">
+                            <h3 class="card-title">Số Điện Thoại</h3>
+                            <input type="text" class="form-control" placeholder="Nhập số điện thoại"
+                                name="so_dien_thoai">
+                        </div>
+                        <div class="form-group col">
+                            <h3 class="card-title">Chức Vụ</h3>
+                            <select class="custom-select form-control-border" name="chuc_vu" id="chuc_vu">
+
+                                <option>Văn Thư</option>
+                                <option>Lãnh đạo phòng HC-TC</option>
+                                <option>Chánh văn phòng</option>
+                                <option>Lãnh đạo UBND-TP</option>
+                                <option>Lãnh đạo VP UBND-TP</option>
+                                <option>Trưởng phòng</option>
+                                <option>Phó trưởng phòng</option>
+                                <option>Chuyên viên</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <div id="myModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">THÔNG BÁO</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p><%= mes  %></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+          <!-- <button type="button" class="btn btn-primary">Save</button> -->
+        </div>
+      </div>
+    </div>
+  </div>

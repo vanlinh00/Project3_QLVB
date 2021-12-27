@@ -1,5 +1,17 @@
 <% extend("../mainuser.ejs") %>
+
+<script>
+  var getTest = "<%= message  %>";
+  if (getTest.length != 0) {
+    $(document).ready(function () {
+      $("#myModal").modal('show');
+
+    });
+  }
+</script>
+
   <section class="content">
+
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
@@ -7,53 +19,68 @@
             <div class="card-header">
               <h3 class="card-title">VĂN BẢN CHỜ PHÊ DUYỆT</h3>
             </div>
-
+            <div class="dropdown">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Chọn loại văn bản
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="/vanbanden/vanbanchopheduyet?id=1">Văn bản để biết</a>
+                <a class="dropdown-item" href="/vanbanden/vanbanchopheduyet?id=2">VB thuộc thẩm quyền giải quyết của UBND TP</a>
+                <a class="dropdown-item" href="/vanbanden/vanbanchopheduyet?id=3">VB Thuộc thẩm quyền giải quyết của VP UBND TP</a>
+                <a class="dropdown-item" href="/vanbanden/vanbanchopheduyet?id=4">VB Thuộc không thẩm quyền giải quyết VP UBND TP</a>
+              </div>
+            </div>
             <!-- /.card-header -->
+            <p1 id="vbcpdtitile">TẤT CẢ VĂN BẢN</p1>
             <div class="card-body">
+
               <table id="example2" class="table table-bordered table-hover">
+
                 <thead>
                   <tr>
                     <th>STT</th>
                     <th>TÊN VĂN BẢN</th>
                     <th>NGƯỜI GỬI ĐẾN</th>
-                    <th>NƠI GỬI ĐẾN</th>
-                    <th>NGÀY GỬI ĐẾN</th>
-                    <th>PHÂN LOẠI</th>
+                    <th>LOẠI VĂN BẢN</th>
+                    <th>HÀNH ĐỘNG</th>
                   </tr>
                 </thead>
                 <tbody>
 
-                  <% if(alldatavb.length!=0){ 
-                    var i=1;
-                    alldatavb.forEach(function(data){ %>
+                  <% if(vanBanChoPheDuyet.length!=0){ var i=1; vanBanChoPheDuyet.forEach(function(data){ %>
                     <tr>
                       <td>
                         <%=i%>
                       </td>
                       <td>
-                        <%=data.tenvb %>
+                        <%=data.name %>
                       </td>
                       <td>
-                        <%=data.nguoiguiden %>
+                        <%=data.nguoi_gui_den%>
                       </td>
+                  
                       <td>
-                        <%=data.noiguiden %>
-                      </td>
-                      <td>
-                        <%=data.ngayguiden %>
-                      </td>
-                      <td>
-                        <a href="/vanbanden/vanbanchophanloai/phanloai?id=<%=data.id%>" class="edit" title="Edit" data-toggle="tooltip"><i
-                            class="material-icons"></i>Xem và phân loại</a>
-
+                        <%=data.category%>
                       </td>
 
-
+                      <td class="project-actions text-right">
+                        <a class="btn btn-primary btn-sm"  href="/vanbanden/vanbanchopheduyet/pheduyet?id=<%=data.id%>">
+                            <i class="fas fa-folder">
+                            </i>
+                            Phê Duyệt
+                        </a>
+             
+                        <a class="btn btn-danger btn-sm" href="#">
+                            <i class="fas fa-trash">
+                            </i>
+                            Xóa Bỏ
+                        </a>
+                    </td>
                     </tr>
                     <% i++; }) %>
                       <% } else{ %>
                         <tr>
-                          <td colspan="8">No Data Found</td>
+                          
                         </tr>
                         <% } %>
 
@@ -73,3 +100,21 @@
     </div>
     <!-- /.container-fluid -->
   </section>
+
+  <div id="myModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">THÔNG BÁO</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p><%= message  %></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+          <!-- <button type="button" class="btn btn-primary">Save</button> -->
+        </div>
+      </div>
+    </div>
+  </div>

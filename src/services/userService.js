@@ -22,14 +22,46 @@ let checkuserlogin = async function (gmail_user) {
     return new Promise((async (resolve, reject) => {
         try {
             let data = await User.checkgmail_user(gmail_user);
-            resolve(data);
+            //   console.log(data);
+            resolve(data[0]);
 
         } catch (e) {
             resolve(data);
         }
     }));
 }
+
+let checkbyid = async function (iduser) {
+    return new Promise((async (resolve, reject) => {
+        try {
+            let data = await User.checkuserbyid(iduser);
+            //  console.log(data);
+            resolve(data[0]);
+
+        } catch (e) {
+            resolve(data);
+        }
+    }));
+}
+let addUser = async (newRoom) => {
+    return new Promise((async (resolve, reject) => {
+        try {
+            let user = await User.addUser(newRoom);
+            if (user != null) {
+                resolve(room);
+            }
+            else {
+                resolve(null);
+            }
+        } catch (e) {
+            resolve(null);
+        }
+    }));
+
+}
 module.exports = {
     getalluser: getalluser,
-    checkuserlogin: checkuserlogin
+    checkuserlogin: checkuserlogin,
+    checkbyid: checkbyid,
+    addUser: addUser,
 }

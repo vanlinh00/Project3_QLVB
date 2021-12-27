@@ -1,58 +1,108 @@
 
-var File = require('../models/fileden.model');
+var fileModel = require('../models/fileden.model');
 
-let checkfile = async function (id) {
+let checkFileById = async function (id) {
     return new Promise((async (resolve, reject) => {
         try {
-            let data = await File.checkfilename(id);
-            resolve(data);
-         //   console.log(data);
-
-        } catch (e) {
-            resolve(data);
-        }
-    }));
-}
-
-let addfiletext = async function (filetext) {
-    return new Promise((async (resolve, reject) => {
-        try {
-          
-            let data = await File.addfile(filetext);
-            resolve(data);
-          console.log(data);
-
-        } catch (e) {
-            resolve(data);
-        }
-    }));
-}
-let getvanphanchophanloai = async function () {
-    return new Promise((async (resolve, reject) => {
-        try {
-            var datafileCPL=[];
-            let data = await File.getallfile();
-            if(data.length!=0) {
-              
-                for(let i=0; i<data.length; i++) {
-                   if(data[i].id_typefile==0)
-                   {
-                       datafileCPL.push(data[i]);
-                   }
-                }
+            let fileVanBanDen = await fileModel.checkFileById(id);
+            if (fileVanBanDen.length != 0) {
+                resolve(fileVanBanDen[0]);
+            } else {
+                resolve(null);
             }
-            console.log(datafileCPL);
-            resolve(datafileCPL);
-         
+
+        } catch (e) {
+            resolve(null);
+        }
+    }));
+}
+
+let addFileText = async function (fileText) {
+    return new Promise((async (resolve, reject) => {
+        try {
+            let file = await fileModel.addFileText(fileText);
+            console.log(file);
+
+            if (file != null) {
+                resolve(file);
+            }
+            else {
+                resolve(null);
+            }
+        } catch (e) {
+            reject(e);
+        }
+    }));
+}
+let getVanBanChoPhanLoai = async function () {
+    return new Promise((async (resolve, reject) => {
+        try {
+            let data = await fileModel.getVanBanChoPhanLoai(0);
+            if (data != undefined) {
+                resolve(data);
+            } else {
+                resolve(null);
+            }
+
+
 
         } catch (e) {
             resolve(e);
         }
     }));
 }
+let upDateCategoryFileDen = async function (value, id) {
+    return new Promise((async (resolve, reject) => {
+        try {
+            let fileDen = await fileModel.upDateCategoryFileDen(value, id);
+            if (fileDen != null) {
+                resolve(true);
+            } else {
+                resolve(null);
+            }
+        } catch (e) {
+            resolve(null);
+        }
+    }));
+}
+let getVanBanChoPheDuyet = async function () {
+    return new Promise((async (resolve, reject) => {
+        try {
+            let vanBanChuaPD = await fileModel.getVanBanChoPheDuyet(0);
+            if (vanBanChuaPD != undefined) {
+                resolve(vanBanChuaPD);
+            }
+            else {
+                resolve(null);
+            }
 
+        } catch (e) {
+            resolve(null);
+        }
+    }));
+}
+let getVanBanChoPheDuyetByIdcategory = async (id) => {
+    return new Promise((async (resolve, reject) => {
+        try {
+            let data = await fileModel.getVanBanChoPheDuyetByIdcategory(id);
+            if (data != undefined) {
+                resolve(data);
+            } else {
+                resolve(null);
+            }
+
+
+
+        } catch (e) {
+            resolve(e);
+        }
+    }));
+}
 module.exports = {
-    checkfile: checkfile,
-    addfiletext:addfiletext,
-    getvanphanchophanloai:getvanphanchophanloai,
+    checkFileById: checkFileById,
+    addFileText: addFileText,
+    getVanBanChoPhanLoai: getVanBanChoPhanLoai,
+    upDateCategoryFileDen: upDateCategoryFileDen,
+    getVanBanChoPheDuyet: getVanBanChoPheDuyet,
+    getVanBanChoPheDuyetByIdcategory: getVanBanChoPheDuyetByIdcategory,
 }

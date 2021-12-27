@@ -4,7 +4,7 @@ var connection= mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'qlvb'
+    database: 'qlvbproject3'
 });
 
 connection.connect(function(err, connection){

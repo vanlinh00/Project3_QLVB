@@ -2,12 +2,11 @@ import express from "express";
 import { isBuffer } from "util";
 import homeController from "../controllers/homeController";
 import vanbandenController from "../controllers/vanbandenController";
-
 import adminController from "../controllers/adminController";
+import roomController from "../controllers/roomController";
 
-var UserService = require('../services/userService');
 
-const db = require('../config/database.config');
+
 var multer = require('multer');
 const DIR = './uploads';
 let router = express.Router();
@@ -28,7 +27,7 @@ initializePassport(
   id => users.find(user => user.id === id)
 )
 
-const users = []
+
 
 let initWebRoutes = (app) => {
 
@@ -41,6 +40,11 @@ let initWebRoutes = (app) => {
   app.use(passport.initialize())
   app.use(passport.session())
   app.use(methodOverride('_method'))
+  app.locals.error = null;
+
+
+
+
 
   app.get('/login', checkNotAuthenticated, homeController.login)
 
@@ -56,32 +60,12 @@ let initWebRoutes = (app) => {
 
   app.post('/register', checkNotAuthenticated, async (req, res) => {
     try {
-      users.push({
-        id: Date.now().toString(),
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password 
-      })
       res.redirect('/login')
     } catch {
       res.redirect('/register')
     }
   })
 
-  app.get('/getalluser', async (req, res) => {
-    var alluser = await UserService.getalluser();
-    if (users.length == 0) {
-      for (let i = 0; i < alluser.length; i++) {
-        users.push(alluser[i]);
-      }
-    }
-    else {
-      console.log("getalluserok");
-    }
-    //console.log(alluser);
-    res.send(users);
-    // console.log(users);
-  })
 
   app.delete('/logout', (req, res) => {
     req.logOut()
@@ -102,7 +86,8 @@ let initWebRoutes = (app) => {
     }
     next()
   }
-/*  trên là  phần authentication */
+
+  /*  trên là  phần authentication */
 
   let storage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -116,34 +101,44 @@ let initWebRoutes = (app) => {
   let upload = multer({ storage: storage });
 
 
-/* phần user*/
+  /* phần user*/
 
-/*phần trang chủ*/
+  /*phần trang chủ*/
   router.get('/trangchu', checkAuthenticated, homeController.trangchu);
 
-/* phần văn bản đến*/
-  router.get('/vanthu/themvanbanden',checkAuthenticated, vanbandenController.themvanbanden);
-  router.post('/vanthu/themvanbanden',checkAuthenticated, upload.single('profile'), vanbandenController.themvanbandentc);
-  
-  router.get('/vanbanden/vanbanchophanloai',checkAuthenticated, vanbandenController.vanbanchophanloai);
+  /* phần văn bản đến*/
+  router.get('/vanthu/themvanbanden', checkAuthenticated, vanbandenController.themvanbanden);
+  router.post('/vanthu/themvanbanden', checkAuthenticated, upload.single('profile'), vanbandenController.themvanbandentc);
+
+  router.get('/vanbanden/vanbanchophanloai', checkAuthenticated, vanbandenController.vanbanchophanloai);
+  router.get('/vanbanden/vanbanchophanloai/phanloai', checkAuthenticated, vanbandenController.vanbanchophanloaiphanloai);
+  router.post('/vanbanden/vanbanchophanloai/phanloai', checkAuthenticated, vanbandenController.postvanbanchophanloaiphanloai);
+
+  router.get('/vanbanden/vanbanchopheduyet', checkAuthenticated, vanbandenController.vanbanchopheduyet);
+  router.get('/vanbanden/vanbanchopheduyet/pheduyet', checkAuthenticated, vanbandenController.vanbanchopheduyetpheduyet);
+  router.post('/vanbanden/vanbanchopheduyet/pheduyet', checkAuthenticated, vanbandenController.postVanBanChoPheDuyetPheduyet);
+
+  /* quản lý phòng ban*/
+  router.get('/phongban/danhsachphongban',checkAuthenticated, roomController.danhSachPhongBan);
+  router.post('/phongban/themphongban',checkAuthenticated, roomController.themPhongBan);
+
+  router.get('/phongban/xemphongban',checkAuthenticated, roomController.xemDanhSachUerPhongBan);
+  router.post('/phongban/themuservaophong',checkAuthenticated, roomController.themUserVaoPhong);
  
-  router.get('/vanbanden/vanbanchophanloai/phanloai',checkAuthenticated, vanbandenController.vanbanchophanloaiphanloai);
-
-  // router.get('/vanthu/vanbanchuaduyet', homeController.vanbanchuaduyet);
-  // router.get('/vanbanden/xemchitiet', homeController.vbdxemchitiet);
+  router.get('/phongban/edituserphong',roomController.editUserPhong);
 
 
 
-/* phần admin */
-  
+  /* phần admin */
+
   router.get('/admin', adminController.admin);
   router.get('/admin/getalluser', adminController.admingetalluser);
   router.get('/admin/users/edit', adminController.adminedituser);
   router.get('/admin/users/view', adminController.adminviewuer);
   router.get('/admin/users/delete', adminController.admindeleteuser);
 
-
   return app.use("/", router);
+
 }
 
 module.exports = initWebRoutes;

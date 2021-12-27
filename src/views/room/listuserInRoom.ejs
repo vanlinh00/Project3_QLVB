@@ -1,0 +1,217 @@
+<% extend("../mainuser.ejs") %>
+
+    <script>
+        var getTest = 0;
+        var getUserByIdRoom = "<%= getUserByIdRoom %>";
+        $(document).ready(function () {
+
+            $("#addUser").click(function () {
+                $("#addUserModal").modal('show');
+            });
+
+        });
+        var variablesAddRoom = "<%= message  %>";
+        if (variablesAddRoom.length != 0) {
+            $(document).ready(function () {
+
+                $("#myMessage").modal('show');
+
+
+            });
+        }
+    </script>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <a href="/phongban/danhsachphongban" class="btn btn-primary btnComeBack">Quay lại</a>
+                    <div class="card">
+
+                        <div class="card-header">
+                            <h3 class="card-title edittitel">DANH SÁCH CÁC CÁN BỘ TRONG PHÒNG</h3>
+                        </div>
+                        <div>
+                            <button id="addUser" type="button" class="btn btn-primary btnAddRoom">
+                                Thêm Cán Bộ
+                            </button>
+
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>HỌ VÀ TÊN</th>
+                                        <th>GIỚI TÍNH</th>
+                                        <th>NGÀY SINH</th>
+                                        <th>CHỨC VỤ</th>
+                                        <th>HÀNH ĐỘNG</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% if(getUserByIdRoom.length!=0){ var i=1; getUserByIdRoom.forEach(function(data){
+                                        %>
+                                        <tr>
+                                            <td>
+                                                <%=i%>
+                                            </td>
+                                            <td>
+                                                <%=data.ho_ten %>
+                                            </td>
+                                            <td>
+                                                <%=data.goi_tinh %>
+                                            </td>
+                                            <td>
+                                                <%=data.ngay_sinh %>
+                                            </td>
+                                            <td>
+                                                <%=data.chuc_vu %>
+                                            </td>
+                                            <td class="project-actions text-right">
+                                                <a class="btn btn-primary btn-sm" href="/phongban/themphongban">
+                                                    <i class="fas fa-folder">
+                                                    </i>
+                                                    View
+                                                </a>
+                                                <a id="editUser<%=data.id%>" class="btn btn-info btn-sm">
+                                                    <i class=" fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="#">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <% i++; }) %>
+                                            <% } else{ %>
+                                                <tr>
+
+                                                </tr>
+                                                <% } %>
+
+
+
+                                </tbody>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+
+
+    <div id="addUserModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card card-danger">
+                    <div class="card-header ">
+                        <h3 class="card-title">Thông Tin Cán Bộ</h3>
+
+                    </div>
+                    <div class="card-body">
+                        <form role="form" method="post" action="/phongban/themuservaophong?id=<%=idPhongBan%>">
+                            <div class="row mt-4">
+                                <div class="col ">
+                                    <h3 class="card-title">Họ Và Tên</h3>
+                                    <input type="text" class="form-control" id="namefiletext"
+                                        placeholder="Nhập họ và tên" name="ho_ten">
+                                </div>
+                                <div class="col">
+                                    <h3 class="card-title">Địa Trỉ</h3>
+                                    <input type="text" class="form-control" placeholder="Nhập địa chỉ" name="dia_chi">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col ">
+                                    <h3 class="card-title">Email</h3>
+                                    <input type="text" class="form-control" id="namefiletext"
+                                        placeholder="Nhập Email" name="email">
+                                </div>
+                                <div class="col">
+                                    <h3 class="card-title">Mật khẩu</h3>
+                                    <input type="text" class="form-control" placeholder="Nhập mật khẩu" name="password">
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-4">
+                                <div class="col mt-1">
+                                    <h3 class="card-title">Ngày Sinh</h3>
+                                    <input type="text" class="form-control" placeholder="Nhập ngày sinh"
+                                        name="ngay_sinh">
+                                </div>
+
+                                <div class="form-group col ">
+                                    <h3 class="card-title">Gới Tính</h3>
+                                    <select class="custom-select form-control-border" name="goi_tinh" id="goi_tinh">
+                                        <option>Nam</option>
+                                        <option>Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col mt-2">
+                                    <h3 class="card-title">Số Điện Thoại</h3>
+                                    <input type="text" class="form-control" placeholder="Nhập số điện thoại"
+                                        name="so_dien_thoai">
+                                </div>
+                                <div class="form-group col">
+                                    <h3 class="card-title">Chức Vụ</h3>
+                                    <select class="custom-select form-control-border" name="chuc_vu" id="chuc_vu">
+
+                                        <option>Văn Thư</option>
+                                        <option>Lãnh đạo phòng HC-TC</option>
+                                        <option>Chánh văn phòng</option>
+                                        <option>Lãnh đạo UBND-TP</option>
+                                        <option>Lãnh đạo VP UBND-TP</option>
+                                        <option>Trưởng phòng</option>
+                                        <option>Phó trưởng phòng</option>
+                                        <option>Chuyên viên</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div id="myMessage" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">THÔNG BÁO</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <%= message %>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+                    <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                </div>
+            </div>
+        </div>
+    </div>

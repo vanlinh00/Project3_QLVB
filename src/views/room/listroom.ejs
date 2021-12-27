@@ -1,0 +1,195 @@
+<% extend("../mainuser.ejs") %>
+
+    <script>
+     $(document).ready(function () {
+                $("#addRoom").click(function () {
+                   
+                    $("#myModal").modal('show');
+                   
+                });
+            });
+       
+        var variablesAddRoom = "<%= mess  %>";
+        if (variablesAddRoom.length != 0) {
+            $(document).ready(function () {
+
+                $("#myMessage").modal('show');
+           
+
+            });
+        }
+     
+    </script>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+          
+                <div class="col-12">
+                   
+                    <div class="card">
+                      
+                        <div class="card-header">
+                            <h3 class="card-title edittitel">DANH SÁCH CÁC PHÒNG BAN</h3>
+                        </div>
+                        <div>
+                            
+                            <button id="addRoom" type="button" class="btn btn-primary btnAddRoom">
+                                Thêm Phòng
+                            </button>
+                         
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>TÊN PHÒNG BAN</th>
+                                        <th>MÃ PHÒNG BAN</th>
+                                        <th>THỦ TRƯỞNG</th>
+                                        <th>SỐ NHÂN VIÊN</th>
+                                        <th>SỐ ĐIỆN THOẠI</th>
+                                        <th>XEM CHI TIẾT</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                    <% if(getAllRoom.length!=0){ var i=1; getAllRoom.forEach(function(data){ %>
+                                        <tr>
+                                            <td>
+                                                <%=i%>
+                                            </td>
+                                            <td>
+                                                <%=data.ten_phong %>
+                                            </td>
+                                            <td>
+                                                <%=data.ma_phong %>
+                                            </td>
+                                            <td>
+                                                <%=data.id_truong_phong %>
+                                            </td>
+                                            <td>
+                                                <%=data.so_can_bo %>
+                                            </td>
+                                            <td>
+                                                <%=data.sdt_phong %>
+                                            </td>
+
+                                            <td class="project-actions text-right">
+                                                <a class="btn btn-primary btn-sm" href="/phongban/xemphongban?id=<%=data.id%>">
+                                                    <i class="fas fa-folder">
+                                                    </i>
+                                                    View
+                                                </a>
+                                                <a id="editUser" class="btn btn-info btn-sm" href="/phongban/chinhsuaphongban?id=<%=data.id%>">
+                                                        <i class=" fas fa-pencil-alt">
+                                                    </i>
+                                                    Edit
+                                                </a>
+                                                <a class="btn btn-danger btn-sm" href="/phongban/xoaphongban?id=<%=data.id%>">
+                                                    <i class="fas fa-trash">
+                                                    </i>
+                                                    Delete
+                                                </a>
+
+                                            </td>
+                                        </tr>
+                                        <% i++; }) %>
+                                            <% } else{ %>
+                                                <tr>
+
+                                                </tr>
+                                                <% } %>
+
+                                </tbody>
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+
+
+    <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card card-danger">
+                    <div class="card-header ">
+                        <h3 class="card-title  ">Nhập thông tin phòng ban</h3>
+                    </div>
+                    <div class="card-body">
+                        <form role="form" method="post" action="/phongban/themphongban">
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <h3 class="card-title">Mã Phòng</h3>
+                                    <input type="text" class="form-control" id="namefiletext"
+                                        placeholder="Nhập Mã phòng" name="ma_phong">
+                                </div>
+                                <div class="col">
+                                    <h3 class="card-title">Tên Phòng</h3>
+                                    <input type="text" class="form-control" placeholder="Nhập tên phòng"
+                                        name="ten_phong">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <h3 class="card-title">Số Cán Bộ</h3>
+                                    <input type="text" class="form-control" placeholder="Nhập số cán bộ"
+                                        name="so_can_bo">
+                                </div>
+                                <div class="col">
+                                    <h3 class="card-title">Địa Trỉ</h3>
+                                    <input type="text" class="form-control" placeholder="Nhập địa chỉ" name="dia_chi">
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col">
+                                    <h3 class="card-title">Trưởng Phòng</h3>
+                                    <input type="text" class="form-control" placeholder="Nhập họ và tên trưởng phòng"
+                                        name="id_truong_phong">
+                                </div>
+                                <div class="col">
+                                    <h3 class="card-title">Số Điện Thoại Phòng</h3>
+                                    <input type="text" class="form-control" placeholder="Nhập số điện thoại"
+                                        name="sdt_phong">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="myMessage" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">THÔNG BÁO</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <%= mess %>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+                    <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                </div>
+            </div>
+        </div>
+    </div>

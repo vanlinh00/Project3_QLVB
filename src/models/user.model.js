@@ -28,12 +28,12 @@ User.get_all = () => {
 User.checkgmail_user = (gamil) => {
     return new Promise((async (resolve, reject) => {
         try {
-            db.query('SELECT * FROM user WHERE gmail_user = ?', gamil, (err, res) => {
+            db.query('SELECT * FROM user WHERE email = ?', gamil, (err, res) => {
                 if (err) {
-                    console.log('Error check phone number', err);
+                 //   console.log('Error check phone number', err);
                     result(err, null);
                 } else {
-                    console.log('Check phone number successfully');
+                 //   console.log('Check phone number successfully');
                     resolve(res);
                 }
             })
@@ -42,5 +42,37 @@ User.checkgmail_user = (gamil) => {
         }
     }));
 };
-
+User.checkuserbyid = (id) => {
+    return new Promise((async (resolve, reject) => {
+        try {
+            db.query('SELECT * FROM user WHERE id = ?', id, (err, res) => {
+                if (err) {
+                //    console.log('Error check phone number', err);
+                    result(err, null);
+                } else {
+                  //  console.log('Check phone number successfully');
+                    resolve(res);
+                }
+            })
+        } catch (e) {
+            reject(e);
+        }
+    }));
+};
+User.addUser = (dataNew)=>{
+    console.log("vao duoc model")
+    return new Promise((async (resolve, reject) => {
+        try {
+            db.query("INSERT INTO user SET ?", dataNew, function (err, data) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    resolve({ id: data.insertId, ...dataNew });
+                }
+            });
+        } catch (e) {
+            resolve(null);
+        }
+    }));
+}
 module.exports = User;

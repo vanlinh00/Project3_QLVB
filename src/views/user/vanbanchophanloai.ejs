@@ -1,4 +1,17 @@
 <% extend("../mainuser.ejs") %>
+
+  <script>
+    var getTest = "<%= mess  %>";
+    if (getTest.length != 0) {
+      $(document).ready(function () {
+        $("#myModal").modal('show');
+
+      });
+    }
+  </script>
+
+
+
   <section class="content">
     <div class="container-fluid">
       <div class="row">
@@ -23,37 +36,33 @@
                 </thead>
                 <tbody>
 
-                  <% if(alldatavb.length!=0){ 
-                    var i=1;
-                    alldatavb.forEach(function(data){ %>
+                  <% if(alldatavb.length!=0){ var i=1; alldatavb.forEach(function(data){ %>
                     <tr>
                       <td>
                         <%=i%>
                       </td>
                       <td>
-                        <%=data.tenvb %>
+                        <%=data.ten_vb %>
                       </td>
                       <td>
-                        <%=data.nguoiguiden %>
+                        <%=data.nguoi_gui_den %>
                       </td>
                       <td>
-                        <%=data.noiguiden %>
+                        <%=data.noi_gui_den %>
                       </td>
                       <td>
                         <%=data.ngayguiden %>
                       </td>
                       <td>
-                        <a href="/vanbanden/vanbanchophanloai/phanloai?id=<%=data.id%>" class="edit" title="Edit" data-toggle="tooltip"><i
-                            class="material-icons"></i>Xem và phân loại</a>
+                        <a href="/vanbanden/vanbanchophanloai/phanloai?id=<%=data.id%>" class="edit" title="Edit"
+                          data-toggle="tooltip"><i class="material-icons"></i>Xem và phân loại</a>
 
                       </td>
-
-
                     </tr>
                     <% i++; }) %>
                       <% } else{ %>
                         <tr>
-                          <td colspan="8">No Data Found</td>
+                          
                         </tr>
                         <% } %>
 
@@ -73,3 +82,21 @@
     </div>
     <!-- /.container-fluid -->
   </section>
+
+  <div id="myModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">THÔNG BÁO</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p><%= mess  %></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+          <!-- <button type="button" class="btn btn-primary">Save</button> -->
+        </div>
+      </div>
+    </div>
+  </div>

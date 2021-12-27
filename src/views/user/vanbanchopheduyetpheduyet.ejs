@@ -1,0 +1,74 @@
+<!-- Main content -->
+
+<% extend("../mainuser.ejs") %>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="/vanbanden/vanbanchopheduyet?id=<%=fileVanBan.id_category%>" class="btn btn-primary btn-block mb-3">Quay lại</a>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Phân loại duyệt văn bản</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <form action="/vanbanden/vanbanchopheduyet/pheduyet?id=<%=fileVanBan.id%>" method="POST">
+                                <label class="containerplvb">CÓ PHÊ DUYỆT
+                                    <input type="radio" checked="checked" value="1" name="radio">
+                                    <span class="checkmarkplvb"></span>
+                                </label>
+                                <label class="containerplvb">KHÔNG PHÊ DUYỆT
+                                    <input type="radio" value="2" name="radio">
+                                    <span class="checkmarkplvb"></span>
+                                </label>
+                                <div>
+                                    <button type="submit" class="btn btn-primary btn-block">PHÊ DUYỆT</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header phanloaicangiua">
+                            <h3 class="card-title ">
+                                <%=fileVanBan.name%>
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="form-group">
+                                <textarea id="compose-textarea" class="form-control" style="height: 300px">
+                    <h1><u><%=fileVanBan.name%></u></h1>
+                    <!-- <h4>Subheading</h4> -->
+                    <p><%=fileVanBan.contentvb%></p>
+                    <!-- <ul>
+                      <li>List item one</li>
+                      <li>List item two</li>
+                      <li>List item three</li>
+                      <li>List item four</li>
+                    </ul> -->
+                    <p>Người gửi</p>
+                    <p>John Doe</p>
+                  </textarea>
+                            </div>
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->

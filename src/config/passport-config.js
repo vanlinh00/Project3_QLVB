@@ -1,20 +1,19 @@
 const LocalStrategy = require('passport-local').Strategy
+var UserService = require('../services/userService');
 //const bcrypt = require('bcrypt')
 
 function initialize(passport, getUserByEmail, getUserById) {
   const authenticateUser = async (email, password, done) => {
-    const user = getUserByEmail(email)
-    console.log(user);
-    if (user == null) {
-      return done(null, false, { message: 'No user with that email' })
-    }
+    const user = await UserService.checkuserlogin(email);
 
+    if (user == null) {
+      return done(null, false, { message: 'Người dùng không tồn tại' })
+    }
     try {
-      // check password
-      if (1) {
+      if (password == user.password) {
         return done(null, user)
       } else {
-        return done(null, false, { message: 'Password incorrect' })
+        return done(null, false, { message: 'Mật khẩu sai' })
       }
     } catch (e) {
       return done(e)
@@ -23,8 +22,9 @@ function initialize(passport, getUserByEmail, getUserById) {
 
   passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser))
   passport.serializeUser((user, done) => done(null, user.id))
-  passport.deserializeUser((id, done) => {
-    return done(null, getUserById(id))
+  passport.deserializeUser(async (id, done) => {
+    var user = await UserService.checkbyid(id);
+    return done(null, user)
   })
 }
 

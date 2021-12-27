@@ -1,4 +1,31 @@
 <% extend("../mainuser.ejs") %>
+  <!-- 
+  <script>
+    var getTest = "<%= mes  %>";
+    if (getTest.length != 0) {
+      alert(getTest);  // successfully prints the string on browser
+    }
+  </script> -->
+
+  <script>
+    //var a = 0;
+    var getTest = "<%= mes  %>";
+
+    if (getTest.length != 0) {
+      $(document).ready(function () {
+        $("#myModal").modal('show');
+
+      });
+    }
+  </script>
+
+  <style>
+    .bs-example {
+      margin: 20px;
+    }
+  </style>
+
+
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -18,36 +45,34 @@
 
   <section class="content">
     <div class="container-fluid">
-      <div class="card card-danger">
+      <div class="card card-danger edituserclass">
         <div class="card-header ">
           <h3 class="card-title ">Nhập thông tin văn bản</h3>
+
         </div>
         <div class="card-body">
-
           <form role="form" method="post" action="/vanthu/themvanbanden" enctype="multipart/form-data">
-            <div class="row">
+            <div class="row mt-3">
               <div class="col">
-                <h3 class="card-title">Tên Văn Bản: </h3>
-
-                <input type="text" class="form-control" id="namefiletext" placeholder="Nhập tên văn bản"
-                  name="tenvb">
+                <h3 class="card-title">Tên văn bản: </h3>
+                <input type="text" class="form-control" id="namefiletext" placeholder="Nhập tên văn bản" name="ten_vb">
               </div>
               <div class="col">
                 <h3 class="card-title">Người gửi đến:</h3>
-                <input type="text" class="form-control" placeholder="Nhập người gửi" name="nguoiguiden">
+                <input type="text" class="form-control" placeholder="Nhập người gửi" name="nguoi_gui_den">
               </div>
             </div>
             <div class="row mt-3">
               <div class="col">
-
                 <h3 class="card-title">Nơi gửi đến:</h3>
-                <input type="text" class="form-control" placeholder="Nhập nơi gửi đến" name="noiguiden">
+                <input type="text" class="form-control" placeholder="Nhập nơi gửi đến" name="noi_gui_den">
               </div>
               <div class="col">
                 <div class="form-group">
                   <h3 class="card-title">Ngày gửi đến:</h3>
                   <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" name="ngayguiden"/>
+                    <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime"
+                      name="thoi_gian_nhan" />
                     <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
                       <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -55,15 +80,16 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="row mt-3">
+            <div class="row">
               <div class="col">
-                <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+                <h3 class="card-title">Mã cơ quan:</h3>
+                <input type="text" class="form-control" placeholder="Nhập nơi mã cơ quan" name="ma_co_quan">
               </div>
               <div class="col">
-                <input type="password" class="form-control" placeholder="Enter password" name="pswd">
+                <h3 class="card-title">Số và kí hiệu:</h3>
+                <input type="text" class="form-control" placeholder="Nhập số và kí hiệu" name="so_ki_hieu">
               </div>
-            </div> -->
-
+            </div>
             <div class="form-group">
               <label for="exampleInputFile">File input</label>
               <div class="input-group">
@@ -74,14 +100,32 @@
                 </div>
                 <div class="input-group-append">
                   <span class="input-group-text">Upload</span>
+
                 </div>
               </div>
             </div>
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
-
           </form>
 
         </div>
       </div>
     </div>
   </section>
+
+  <div id="myModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">THÔNG BÁO</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p><%= mes  %></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+          <!-- <button type="button" class="btn btn-primary">Save</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
