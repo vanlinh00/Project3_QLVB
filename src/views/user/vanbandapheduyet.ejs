@@ -1,0 +1,115 @@
+<% extend("../mainuser.ejs") %>
+
+<script>
+  var getTest = "<%= message  %>";
+  if (getTest.length != 0) {
+    $(document).ready(function () {
+      $("#myModal").modal('show');
+
+    });
+  }
+</script>
+
+  <section class="content">
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">VĂN BẢN ĐÃ PHÊ DUYỆT</h3>
+            </div>
+           
+            <!-- /.card-header -->
+            <p1 id="vbcpdtitile">TẤT CẢ VĂN BẢN</p1>
+            <div class="card-body">
+
+              <table id="example2" class="table table-bordered table-hover">
+
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>TÊN VĂN BẢN</th>
+                    <th>NGƯỜI GỬI ĐẾN</th>
+                    <th>LOẠI VĂN BẢN</th>
+                    <th>TRANG THÁI</th>
+                    <th>HÀNH ĐỘNG</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <% if(vanBanDaPheDuyet.length!=0){ var i=1; vanBanDaPheDuyet.forEach(function(data){ %>
+                    <tr>
+                      <td>
+                        <%=i%>
+                      </td>
+                      <td>
+                        <%=data.name %>
+                      </td>
+                      <td>
+                        <%=data.nguoi_gui_den%>
+                      </td>
+                  
+                      <td>
+                        <%=data.category%>
+                      </td>
+                        
+                      <td>
+                        <%=data.trang_thai%>
+                      </td>
+
+                      <td class="project-actions text-right">
+                        <a class="btn btn-primary btn-sm"  href="/vanbanden/vanbandapheduyet/lichsupheduyet?id=<%=data.id%>">
+                            <i class="fas fa-folder">
+                            </i>
+                            Xem Lịch Sử
+                        </a>
+             
+                        <a class="btn btn-danger btn-sm" href="#">
+                            <i class="fas fa-trash">
+                            </i>
+                            Xóa Bỏ
+                        </a>
+                    </td>
+                    </tr>
+                    <% i++; }) %>
+                      <% } else{ %>
+                        <tr>
+                          
+                        </tr>
+                        <% } %>
+
+                </tbody>
+                </tbody>
+
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+  </section>
+
+  <div id="myModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">THÔNG BÁO</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p><%= message  %></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+          <!-- <button type="button" class="btn btn-primary">Save</button> -->
+        </div>
+      </div>
+    </div>
+  </div>

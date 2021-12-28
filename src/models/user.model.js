@@ -48,7 +48,7 @@ User.checkuserbyid = (id) => {
             db.query('SELECT * FROM user WHERE id = ?', id, (err, res) => {
                 if (err) {
                 //    console.log('Error check phone number', err);
-                    result(err, null);
+                resolve(null)
                 } else {
                   //  console.log('Check phone number successfully');
                     resolve(res);

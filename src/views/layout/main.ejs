@@ -48,32 +48,41 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
-      
+                  <% if (user.chuc_vu ==1) { %>
                   <li class="nav-item">
                     <a href="/vanthu/themvanbanden" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Thêm Văn bản</p>
                     </a>
                   </li>
-      
                   <li class="nav-item">
-                    <a href="/vanbanden/vanbanchophanloai" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Văn bản chờ phân loại</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/vanbanden/vanbanchopheduyet" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Văn bản chờ phê duyệt</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../../index3.html" class="nav-link">
+                    <a href="/vanbanden/vanbandapheduyet" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Văn bản đã phê duyệt</p>
                     </a>
                   </li>
+                  <%} else { %>
+                    <li class="nav-item">
+                      <a href="/vanbanden/vanbanchophanloai" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Văn bản chờ phân loại</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="/vanbanden/vanbanchopheduyet" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Văn bản chờ phê duyệt</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="/vanbanden/vanbandapheduyet" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Văn bản đã phê duyệt</p>
+                      </a>
+                    </li>
+                    <% } %>
+           
+                  
                 </ul>
               </li>
       
@@ -221,6 +230,8 @@
                 </ul>
               </li>
       
+          
+
               <%} else { %>
 
                 <li class="nav-item">

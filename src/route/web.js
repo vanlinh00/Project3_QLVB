@@ -118,6 +118,9 @@ let initWebRoutes = (app) => {
   router.get('/vanbanden/vanbanchopheduyet/pheduyet', checkAuthenticated, vanbandenController.vanbanchopheduyetpheduyet);
   router.post('/vanbanden/vanbanchopheduyet/pheduyet', checkAuthenticated, vanbandenController.postVanBanChoPheDuyetPheduyet);
 
+
+  router.get('/vanbanden/vanbandapheduyet', checkAuthenticated, vanbandenController.vanBanDaPheDuyet);
+
   /* quản lý phòng ban*/
   router.get('/phongban/danhsachphongban',checkAuthenticated, roomController.danhSachPhongBan);
   router.post('/phongban/themphongban',checkAuthenticated, roomController.themPhongBan);

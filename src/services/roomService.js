@@ -21,13 +21,17 @@ let getAllRoom = () => {
     return new Promise((async (resolve, reject) => {
         try {
             let allRoom = await roomModel.getAllRoom();
+            console.log("khong in ra gi a 2");
+   console.log(allRoom);
             if (allRoom != undefined) {
                 if (allRoom.length != 0) {
                     resolve(allRoom);
+                }else{
+                    resolve([]);
                 }
             }
             else {
-                resolve(null);
+                resolve([]);
             }
         } catch (e) {
             resolve(null);

@@ -3,7 +3,8 @@ var UserService= require('../services/userService');
 let danhSachPhongBan = async (req, res) => {
   const mess = req.flash('messages');
   var getAllRoom = await roomService.getAllRoom();
-
+  console.log("khong in ra gi a");
+   console.log(getAllRoom);
   res.render('room/listroom.ejs', { getAllRoom, mess, user: req.user });
 
 }

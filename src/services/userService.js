@@ -36,7 +36,13 @@ let checkbyid = async function (iduser) {
         try {
             let data = await User.checkuserbyid(iduser);
             //  console.log(data);
-            resolve(data[0]);
+            if(data!=null||data!=undefined)
+            {
+                resolve(data[0]);
+            }else{
+                resolve(null);
+            }
+           
 
         } catch (e) {
             resolve(data);
