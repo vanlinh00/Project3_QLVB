@@ -15,7 +15,7 @@
       </div>
       <div class="info">
         <a href="#" class="d-block">
-       <%=user.email %>
+          <%=user.email %>
         </a>
       </div>
     </div>
@@ -27,32 +27,49 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
 
-             <% if (user.role ==1) { %>
-
-        
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>
-                    DASHBOARD
-                    <i class="right fas "></i>
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
-                  <p>
-                    VĂN BẢN ĐẾN
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <% if (user.chuc_vu ==1) { %>
+        <% if (user.role==1) { %>
+          <li class="nav-item">
+            <a href="/trangchu" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                DASHBOARD
+                <i class="right fas "></i>
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                VĂN BẢN ĐẾN
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <% if (user.chuc_vu==1) { %>
+                <li class="nav-item">
+                  <a href="/vanthu/themvanbanden" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Thêm Văn bản</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/vanbanden/vanbandapheduyet" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Văn bản đã phê duyệt</p>
+                  </a>
+                </li>
+                <%} else { %>
                   <li class="nav-item">
-                    <a href="/vanthu/themvanbanden" class="nav-link">
+                    <a href="/vanbanden/vanbanchophanloai" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Thêm Văn bản</p>
+                      <p>Văn bản chờ phân loại</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/vanbanden/vanbanchopheduyet" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Văn bản chờ phê duyệt</p>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -61,201 +78,182 @@
                       <p>Văn bản đã phê duyệt</p>
                     </a>
                   </li>
-                  <%} else { %>
-                    <li class="nav-item">
-                      <a href="/vanbanden/vanbanchophanloai" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Văn bản chờ phân loại</p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="/vanbanden/vanbanchopheduyet" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Văn bản chờ phê duyệt</p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="/vanbanden/vanbandapheduyet" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Văn bản đã phê duyệt</p>
-                      </a>
-                    </li>
-                    <% } %>
-           
-                  
-                </ul>
-              </li>
-      
-      
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
-                  <p>
-                    VĂN BẢN ĐI
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="../charts/chartjs.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>ChartJS</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/flot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Flot</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/inline.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Inline</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/uplot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>uPlot</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-      
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
-                  <p>
-                    VĂN BẢN PHÁT HÀNH
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="../charts/chartjs.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>ChartJS</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/flot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Flot</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/inline.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Inline</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/uplot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>uPlot</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-      
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
-                  <p>
-                    HỒ SƠ MỘT CỬA
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="../charts/chartjs.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>ChartJS</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/flot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Flot</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/inline.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Inline</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/uplot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>uPlot</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-chart-pie"></i>
-                  <p>
-                    CÔNG VIỆC NỘI BỘ
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="../charts/chartjs.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>ChartJS</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/flot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Flot</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/inline.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Inline</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../charts/uplot.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>uPlot</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-      
-          
+                  <% } %>
 
-              <%} else { %>
 
+            </ul>
+          </li>
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                VĂN BẢN ĐI
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../charts/chartjs.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ChartJS</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/flot.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Flot</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/inline.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inline</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/uplot.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>uPlot</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                VĂN BẢN PHÁT HÀNH
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../charts/chartjs.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ChartJS</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/flot.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Flot</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/inline.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inline</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/uplot.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>uPlot</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                HỒ SƠ MỘT CỬA
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../charts/chartjs.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ChartJS</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/flot.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Flot</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/inline.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inline</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/uplot.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>uPlot</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-chart-pie"></i>
+              <p>
+                CÔNG VIỆC NỘI BỘ
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../charts/chartjs.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>ChartJS</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/flot.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Flot</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/inline.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inline</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../charts/uplot.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>uPlot</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
+
+          <%} else { %>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-chart-pie"></i>
+                <p>
+                  QUẢN LÝ PHÒNG BAN
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-chart-pie"></i>
-                    <p>
-                      QUẢN LÝ PHÒNG BAN
-                      <i class="right fas fa-angle-left"></i>
-                    </p>
+                  <a href="/phongban/danhsachphongban" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>DANH SÁCH PHÒNG BAN</p>
                   </a>
-                  <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                      <a href="/phongban/danhsachphongban" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>DANH SÁCH PHÒNG BAN</p>
-                      </a>
-                    </li>
-                  </ul>
                 </li>
-        
-              <% } %>
-    
-     
-        
+              </ul>
+            </li>
+
+            <% } %>
+
+
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

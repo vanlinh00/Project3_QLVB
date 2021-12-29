@@ -53,11 +53,19 @@
                       <td>
                         <%=data.ngayguiden %>
                       </td>
-                      <td>
+                      <!-- <td>
                         <a href="/vanbanden/vanbanchophanloai/phanloai?id=<%=data.id%>" class="edit" title="Edit"
                           data-toggle="tooltip"><i class="material-icons"></i>Xem và phân loại</a>
 
-                      </td>
+                      </td> -->
+
+                      <td class="project-actions text-right">
+                        <a class="btn btn-primary btn-sm"  href="/vanbanden/vanbanchophanloai/phanloai?id=<%=data.id%>">
+                            <i class="fas fa-folder">
+                            </i>
+                           Phân Loại
+                        </a>
+                    </td>
                     </tr>
                     <% i++; }) %>
                       <% } else{ %>

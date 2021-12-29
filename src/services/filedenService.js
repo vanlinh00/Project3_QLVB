@@ -232,6 +232,23 @@ let vanBanDaPheDuyet = async () => {
         }
     }));
 }
+let allvanBanDen= async()=>{
+    return new Promise((async (resolve, reject) => {
+        try {
+            let data = await fileModel.allvanBanDen();
+            if (data != undefined) {
+                resolve(data);
+            } else {
+                resolve(null);
+            }
+
+
+
+        } catch (e) {
+            resolve(e);
+        }
+    }));
+}
 module.exports = {
     checkFileById: checkFileById,
     addFileText: addFileText,
@@ -246,4 +263,5 @@ module.exports = {
     checkIdXuDaXuLyVanBanChua: checkIdXuDaXuLyVanBanChua,
     addUserXulyVanBan: addUserXulyVanBan,
     vanBanDaPheDuyet: vanBanDaPheDuyet,
+    allvanBanDen:allvanBanDen,
 }

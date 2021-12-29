@@ -67,7 +67,7 @@ File.getVanBanChoPheDuyet = (id) => {
     return new Promise((async (resolve, reject) => {
 
         try {
-            db.query('SELECT  base_document.ten_vb AS name, base_document.id AS id,  base_document.nguoi_gui_den AS nguoi_gui_den, base_document.noi_gui_den AS noi_gui_den, category.ten AS category FROM base_document JOIN category ON base_document.id_category = category.id WHERE id_category != ?', id, (err, res) => {
+            db.query('SELECT base_document.id_category AS id_category, base_document.ten_vb AS name, base_document.id AS id,  base_document.nguoi_gui_den AS nguoi_gui_den, base_document.noi_gui_den AS noi_gui_den, category.ten AS category FROM base_document JOIN category ON base_document.id_category = category.id WHERE trang_thai = ?', id, (err, res) => {
                 if (err) {
                     resolve(null);
                 } else {
@@ -230,6 +230,22 @@ File.vanBanDaPheDuyet = () => {
         }
     }));
 };
+File.allvanBanDen=()=>{
+    return new Promise((async (resolve, reject) => {
+        try {
+            db.query('SELECT * FROM base_document', (err, res) => {
+                if (err) {
+                    resolve(null);
+                } else {
+                
+                    resolve(res);
 
+                }
+            })
+        } catch (e) {
+            reject(e);
+        }
+    }));   
+}
 //  var sql = "SELECT users.name AS user, products.name AS favorite FROM users JOIN products ON users.favorite_product = products.id";
 module.exports = File;

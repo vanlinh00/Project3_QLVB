@@ -56,6 +56,7 @@ let vanbanchophanloaiphanloai = async (req, res) => {
     extracted.then(function (doc) {
         var fileVanBan = {
             id: fileVanbanDen.id,
+            nguoi_gui_den: fileVanbanDen.nguoi_gui_den,
             name: fileVanbanDen.tenvb,
             contentvb: doc.getBody(),
         }
@@ -81,8 +82,39 @@ let vanbanchopheduyet = async (req, res) => {
     var idChuVUCanPheDuyet;
     var vanBanDaLoc = [];
     if (idLoaiVanBanDen == undefined) {
-        vanBanChoPheDuyet = await filedenService.getVanBanChoPheDuyet();
+        var allvanBanChoPheDuyet = await filedenService.getVanBanChoPheDuyet();
+        // res.render("user/vanbanchopheduyet.ejs", {
+        //     vanBanChoPheDuyet: vanBanChoPheDuyet,
+        //     user: req.user,
+        //     message: message
+        // });
+        for (let i = 0; i < allvanBanChoPheDuyet.length; i++) {
+            console.log(allvanBanChoPheDuyet[i].id_category)
+            vanBanChoPheDuyet = await filedenService.getVanBanChoPheDuyetByIdcategory(allvanBanChoPheDuyet[i].id_category);
+            idChuVUCanPheDuyet = await filedenService.checkIdChucVUCanPheDuyet(allvanBanChoPheDuyet[i].id_category);
 
+            for (let i = 0; i < vanBanChoPheDuyet.length; i++) {
+
+                var checkIdXuDaXuLyVanBanChua = await filedenService.checkIdXuDaXuLyVanBanChua(vanBanChoPheDuyet[i].id, req.user.id);
+
+                if (checkIdXuDaXuLyVanBanChua == 2 || checkIdXuDaXuLyVanBanChua == 3) {
+
+                    var idChuVuCuoiCungdaPheDuyet = await filedenService.idChucVuCuoiCungdaPheDuyet(vanBanChoPheDuyet[i].id);
+
+                    if (idChuVuCuoiCungdaPheDuyet == 0 && req.user.chuc_vu == idChuVUCanPheDuyet[0]) {
+                        vanBanDaLoc.push(vanBanChoPheDuyet[i]);
+                    }
+                    else if (idChuVuCuoiCungdaPheDuyet != 0) {
+                        var idChuVUCanPhuyetTieptheo = await filedenService.idChuVUCanPhuyetTieptheo(idChuVUCanPheDuyet, idChuVuCuoiCungdaPheDuyet);
+                        if (idChuVUCanPhuyetTieptheo == req.user.chuc_vu) {
+
+                            vanBanDaLoc.push(vanBanChoPheDuyet[i]);
+                        }
+                    }
+
+                }
+            }
+        }
     } else {
         vanBanChoPheDuyet = await filedenService.getVanBanChoPheDuyetByIdcategory(idLoaiVanBanDen);
 
@@ -109,7 +141,6 @@ let vanbanchopheduyet = async (req, res) => {
 
             }
         }
-
     }
 
     res.render("user/vanbanchopheduyet.ejs", {
@@ -128,6 +159,7 @@ let vanbanchopheduyetpheduyet = async (req, res) => {
         var fileVanBan = {
             id: fileVanbanDen.id,
             name: fileVanbanDen.tenvb,
+            nguoi_gui_den: fileVanbanDen.nguoi_gui_den,
             id_category: fileVanbanDen.id_category,
             contentvb: doc.getBody(),
         }
@@ -137,7 +169,7 @@ let vanbanchopheduyetpheduyet = async (req, res) => {
 let postVanBanChoPheDuyetPheduyet = async (req, res) => {
     var idVB = req.query.id;
     if (req.body.radio != undefined) {
-     
+
         if (req.body.radio == "1") {
             var userXuLyVb = {
                 id_user: req.user.id,
@@ -145,17 +177,17 @@ let postVanBanChoPheDuyetPheduyet = async (req, res) => {
                 hanh_dong: "yes",
 
             }
-            var updateXuLyVanBan = await  filedenService.addUserXulyVanBan(userXuLyVb)
+            var updateXuLyVanBan = await filedenService.addUserXulyVanBan(userXuLyVb)
             var vbPheduyet = await filedenService.checkFileById(idVB);
-          //  console.log(vbPheduyet)
+            //  console.log(vbPheduyet)
             if (vbPheduyet != null) {
                 var idChuVUCanPheDuyet = await filedenService.checkIdChucVUCanPheDuyet(vbPheduyet.id_category);
-               // console.log(idChuVUCanPheDuyet);
-                if (idChuVUCanPheDuyet[idChuVUCanPheDuyet.length-1] == req.user.chuc_vu) {
+                // console.log(idChuVUCanPheDuyet);
+                if (idChuVUCanPheDuyet[idChuVUCanPheDuyet.length - 1] == req.user.chuc_vu) {
                     var updatTrangThai = await filedenService.UpDateTrangThaiDocumment("1", idVB)
-                 
+
                     req.flash('messages', "Hoàn Thành Phê Duyệt");
-                }else{
+                } else {
                     req.flash('messages', "Phê duyệt văn bản thành công");
                 }
             }

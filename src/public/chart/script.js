@@ -1,20 +1,4 @@
-<% extend("../mainuser.ejs") %>
-  <section class="content">
-    <div class="container-fluid ">
-      <div class="row row1">
 
-        <div class="col-6 chart trangchuchart">
-          <p1 class="textvbd">VĂN BẢN ĐẾN</p1>
-          <canvas id="myChart" width="300" height="200"></canvas>
-        </div>
-        <div class="col-6 chart trangchuchart">
-          <p1 class="textvbd">VĂN BẢN ĐI</p1>
-          <canvas id="myChartf" width="300" height="200"></canvas>
-        </div>
-
-  </section>
-  <script>
-    
 
 // let myDoughnutChart = document.getElementById("myChart").getContext('2d');
 
@@ -72,4 +56,9 @@ let chart12 = new Chart(myDoughnutChart2, {
     },
 });
 
-  </script>
+
+
+
+
+
+
