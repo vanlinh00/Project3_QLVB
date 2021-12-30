@@ -233,7 +233,19 @@ let vanBanDaPheDuyet = async (req, res) => {
     })
 
 }
-
+let xoaVanBanDen = async (req, res) => {
+    try {
+      let file= await filedenService.deleteFile(req.body.id);
+      return res.status(200).json({
+        'message': 'success'
+      })
+  
+    } catch (e) {
+      console.log(e);
+      return res.status(500).json(e);
+    }
+  
+  }
 module.exports = {
     themvanbanden: themvanbanden,
     themvanbandentc: themvanbandentc,
@@ -244,5 +256,6 @@ module.exports = {
     vanbanchopheduyetpheduyet: vanbanchopheduyetpheduyet,
     postVanBanChoPheDuyetPheduyet: postVanBanChoPheDuyetPheduyet,
     vanBanDaPheDuyet: vanBanDaPheDuyet,
+    xoaVanBanDen:xoaVanBanDen,
 
 }

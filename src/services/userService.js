@@ -65,9 +65,41 @@ let addUser = async (newRoom) => {
     }));
 
 }
+let deleteAllUser=(idPhong)=>{
+    return new Promise((async (resolve, reject) => {
+        try {
+            let alluser = await User.deleteAllUser(idPhong);
+            if (alluser!=null) {
+                resolve(true);
+            } else {
+                resolve(null);
+            }
+
+        } catch (e) {
+            resolve(null);
+        }
+    }));
+}
+let deleteUser=(idUser)=>{
+    return new Promise((async (resolve, reject) => {
+        try {
+            let user = await User.deleteUser(idUser);
+            if (user!=null) {
+                resolve(true);
+            } else {
+                resolve(null);
+            }
+
+        } catch (e) {
+            resolve(null);
+        }
+    }));
+}
 module.exports = {
     getalluser: getalluser,
     checkuserlogin: checkuserlogin,
     checkbyid: checkbyid,
     addUser: addUser,
+    deleteAllUser:deleteAllUser,
+    deleteUser:deleteUser,
 }

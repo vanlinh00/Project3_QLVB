@@ -247,5 +247,22 @@ File.allvanBanDen=()=>{
         }
     }));   
 }
+File.deleteFile = (id) => {
+    //console.log(id);
+
+    return new Promise((async (resolve, reject) => {
+        try {
+            db.query(`DELETE FROM base_document WHERE id = '${id}'`, (err, res) => {
+                if (err) {
+                    console.log('tai sao loi o day');
+                } else {
+                    resolve(res);
+                }
+            })
+        } catch (e) {
+            reject(e);
+        }
+    }));
+};
 //  var sql = "SELECT users.name AS user, products.name AS favorite FROM users JOIN products ON users.favorite_product = products.id";
 module.exports = File;

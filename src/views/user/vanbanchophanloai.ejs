@@ -8,6 +8,33 @@
 
       });
     }
+
+
+
+    $(document).ready(function () {
+      $(".delete-vbden").click(function () {
+
+        if (!confirm('Bạn có muốn xóa văn bản này không?')) {
+          return
+        }
+        let id = $(this).data('deletedata');
+        let node = this;
+        //alert(id);
+        $.ajax({
+          method: 'POST',
+          url: `${window.location.origin}/vanbanden/xoavanbanden`,
+          data: { id: id },
+          success: function (data) {
+            node.closest("tr").remove();
+            alertify.success('Delete succeed!');
+          },
+          error: function (err) {
+            alert(id);
+          }
+        });
+      });
+
+    });
   </script>
 
 
@@ -59,18 +86,29 @@
 
                       </td> -->
 
+
+
                       <td class="project-actions text-right">
-                        <a class="btn btn-primary btn-sm"  href="/vanbanden/vanbanchophanloai/phanloai?id=<%=data.id%>">
-                            <i class="fas fa-folder">
-                            </i>
-                           Phân Loại
+                        <a class="btn btn-primary btn-sm" href="/vanbanden/vanbanchophanloai/phanloai?id=<%=data.id%>">
+                          <i class="fas fa-folder">
+                          </i>
+                          Phân Lại
                         </a>
-                    </td>
+
+                        <a class="btn btn-danger btn-sm delete-vbden" data-deletedata="<%= data.id %>" href="#">
+                          <i class="fas fa-trash">
+                          </i>
+                          Xóa Bỏ
+                        </a>
+
+
+                      </td>
+
                     </tr>
                     <% i++; }) %>
                       <% } else{ %>
                         <tr>
-                          
+
                         </tr>
                         <% } %>
 
@@ -99,7 +137,9 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <p><%= mess  %></p>
+          <p>
+            <%= mess %>
+          </p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Save</button>

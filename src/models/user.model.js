@@ -75,4 +75,38 @@ User.addUser = (dataNew)=>{
         }
     }));
 }
+User.deleteAllUser = (id) => {
+    //console.log(id);
+
+    return new Promise((async (resolve, reject) => {
+        try {
+            db.query(`DELETE FROM user WHERE id_phong_ban = '${id}'`, (err, res) => {
+                if (err) {
+                    console.log('tai sao loi o day');
+                } else {
+                    resolve(res);
+                }
+            })
+        } catch (e) {
+            reject(e);
+        }
+    }));
+};
+User.deleteUser = (id) => {
+    //console.log(id);
+
+    return new Promise((async (resolve, reject) => {
+        try {
+            db.query(`DELETE FROM user WHERE id = '${id}'`, (err, res) => {
+                if (err) {
+                    console.log('tai sao loi o day');
+                } else {
+                    resolve(res);
+                }
+            })
+        } catch (e) {
+            reject(e);
+        }
+    }));
+};
 module.exports = User;

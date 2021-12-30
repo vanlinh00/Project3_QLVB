@@ -19,6 +19,33 @@
 
             });
         }
+
+        $(document).ready(function () {
+            $(".delete-user").click(function () {
+
+                if (!confirm('Bạn có muốn xóa cán bộ này không?')) {
+                    return
+                }
+                let id = $(this).data('deletedata');
+                let node = this;
+                //alert(id);
+
+                $.ajax({
+                    method: 'POST',
+                    url: `${window.location.origin}/phongban/xoauser`,
+                    data: { id: id },
+                    success: function (data) {
+                        node.closest("tr").remove();
+                        alertify.success('Delete succeed!');
+                    },
+                    error: function (err) {
+                        alert(id);
+                    }
+                });
+            });
+
+        });
+
     </script>
 
     <section class="content">
@@ -80,7 +107,7 @@
                                                     </i>
                                                     Edit
                                                 </a>
-                                                <a class="btn btn-danger btn-sm" href="#">
+                                                <a class="btn btn-danger btn-sm delete-user"  data-deletedata="<%= data.id %> href="#">
                                                     <i class="fas fa-trash">
                                                     </i>
                                                     Delete

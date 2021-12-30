@@ -1,10 +1,10 @@
 var roomService = require('../services/roomService')
-var UserService= require('../services/userService');
+var UserService = require('../services/userService');
 let danhSachPhongBan = async (req, res) => {
   const mess = req.flash('messages');
   var getAllRoom = await roomService.getAllRoom();
   console.log("khong in ra gi a");
-   console.log(getAllRoom);
+  console.log(getAllRoom);
   res.render('room/listroom.ejs', { getAllRoom, mess, user: req.user });
 
 }
@@ -45,7 +45,7 @@ let xemDanhSachUerPhongBan = async (req, res) => {
     idPhongBan = req.query.id;
     var getUserByIdRoom = await roomService.getUserByIdRoom(idPhongBan);
   }
-  res.render('room/listuserInRoom.ejs', { idPhongBan, getUserByIdRoom, user: req.user,message })
+  res.render('room/listuserInRoom.ejs', { idPhongBan, getUserByIdRoom, user: req.user, message })
 }
 
 let themUserVaoPhong = async (req, res) => {
@@ -74,20 +74,20 @@ let themUserVaoPhong = async (req, res) => {
     goi_tinh: req.body.goi_tinh,
     chuc_vu: chucVuUser,
     id_phong_ban: req.query.id,
-    role:"1",
-    email:req.body.email,
-    password:req.body.password,
+    role: "1",
+    email: req.body.email,
+    password: req.body.password,
   }
- // console.log(addNewUser)
+  // console.log(addNewUser)
   var sendData;
-  if (req.body.email==""||req.body.password==""||req.body.ho_ten == "" || req.body.ngay_sinh == "" || req.body.goi_tinh == "" || req.body.chuc_vu == "") {
+  if (req.body.email == "" || req.body.password == "" || req.body.ho_ten == "" || req.body.ngay_sinh == "" || req.body.goi_tinh == "" || req.body.chuc_vu == "") {
     sendData = {
       idPhong: req.query.id,
       message: "Vui lòng điền đầy đủ thông tin"
     }
   } else {
     var newUser = await UserService.addUser(addNewUser)
-    
+
     sendData = {
       idPhong: req.query.id,
       message: "Thêm cán bộ thành công"
@@ -98,18 +98,47 @@ let themUserVaoPhong = async (req, res) => {
 
 }
 
-let editUserPhong= async (req, res) => {
+let editUserPhong = async (req, res) => {
   const mes = req.flash('messages');
-  var user={
-    email:"test@gmail.com",
-    role:"2",
+  var user = {
+    email: "test@gmail.com",
+    role: "2",
   }
-res.render('room/edituser',{user,mes});
+  res.render('room/edituser', { user, mes });
+}
+let xoaPhongBan = async (req, res) => {
+  try {
+    let deleterom = await roomService.deleteRoom(req.body.id);
+    let deletealluser= await UserService.deleteAllUser(req.body.id);
+    return res.status(200).json({
+      'message': 'success'
+    })
+
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json(e);
+  }
+
+}
+let xoaUser = async (req, res) => {
+  try {
+    let deletealluser= await UserService.deleteUser(req.body.id);
+    return res.status(200).json({
+      'message': 'success'
+    })
+
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json(e);
+  }
+
 }
 module.exports = {
   danhSachPhongBan: danhSachPhongBan,
   themPhongBan: themPhongBan,
   xemDanhSachUerPhongBan: xemDanhSachUerPhongBan,
   themUserVaoPhong: themUserVaoPhong,
-  editUserPhong:editUserPhong,
+  editUserPhong: editUserPhong,
+  xoaPhongBan: xoaPhongBan,
+  xoaUser:xoaUser,
 }

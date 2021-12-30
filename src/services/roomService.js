@@ -53,8 +53,24 @@ let getUserByIdRoom=(id)=>{
         }
     }));
 }
+let deleteRoom=(id)=>{
+    return new Promise((async (resolve, reject) => {
+        try {
+            let room = await roomModel.deleteRoom(id);
+            if (room!=null) {
+                resolve(true);
+            } else {
+                resolve(null);
+            }
+
+        } catch (e) {
+            resolve(null);
+        }
+    }));
+}
 module.exports = {
     addRoom: addRoom,
     getAllRoom: getAllRoom,
     getUserByIdRoom:getUserByIdRoom,
+    deleteRoom:deleteRoom,
 }

@@ -117,16 +117,18 @@ let initWebRoutes = (app) => {
   router.get('/vanbanden/vanbanchopheduyet', checkAuthenticated, vanbandenController.vanbanchopheduyet);
   router.get('/vanbanden/vanbanchopheduyet/pheduyet', checkAuthenticated, vanbandenController.vanbanchopheduyetpheduyet);
   router.post('/vanbanden/vanbanchopheduyet/pheduyet', checkAuthenticated, vanbandenController.postVanBanChoPheDuyetPheduyet);
-
+  router.post('/vanbanden/xoavanbanden', checkAuthenticated, vanbandenController.xoaVanBanDen);
 
   router.get('/vanbanden/vanbandapheduyet', checkAuthenticated, vanbandenController.vanBanDaPheDuyet);
 
   /* quản lý phòng ban*/
   router.get('/phongban/danhsachphongban',checkAuthenticated, roomController.danhSachPhongBan);
+  router.post('/phongban/xoaphongban',checkAuthenticated, roomController.xoaPhongBan);
   router.post('/phongban/themphongban',checkAuthenticated, roomController.themPhongBan);
 
   router.get('/phongban/xemphongban',checkAuthenticated, roomController.xemDanhSachUerPhongBan);
   router.post('/phongban/themuservaophong',checkAuthenticated, roomController.themUserVaoPhong);
+  router.post('/phongban/xoauser',checkAuthenticated, roomController.xoaUser);
  
   router.get('/phongban/edituserphong',roomController.editUserPhong);
 

@@ -8,6 +8,33 @@
 
     });
   }
+
+  
+  $(document).ready(function () {
+      $(".delete-vbden").click(function () {
+
+        if (!confirm('Bạn có muốn xóa văn bản này không?')) {
+          return
+        }
+        let id = $(this).data('deletedata');
+        let node = this;
+        //alert(id);
+        $.ajax({
+          method: 'POST',
+          url: `${window.location.origin}/vanbanden/xoavanbanden`,
+          data: { id: id },
+          success: function (data) {
+            node.closest("tr").remove();
+            alertify.success('Delete succeed!');
+          },
+          error: function (err) {
+            alert(id);
+          }
+        });
+      });
+
+    });
+
 </script>
 
   <section class="content">
@@ -65,11 +92,12 @@
                             Xem Lịch Sử
                         </a>
              
-                        <a class="btn btn-danger btn-sm" href="#">
-                            <i class="fas fa-trash">
-                            </i>
-                            Xóa Bỏ
+                        <a class="btn btn-danger btn-sm delete-vbden" data-deletedata="<%= data.id %>" href="#">
+                          <i class="fas fa-trash">
+                          </i>
+                          Xóa Bỏ
                         </a>
+
                     </td>
                     </tr>
                     <% i++; }) %>

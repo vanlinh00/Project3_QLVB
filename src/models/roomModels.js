@@ -56,5 +56,20 @@ Room.getUserByIdRoom = (id) => {
         }
     }));
 };
-
+Room.deleteRoom = (id)=>{
+   
+    return new Promise((async (resolve, reject) => {
+        try {
+            db.query(`DELETE FROM phong_ban WHERE id = '${id}'`, (err, res) => {
+                if (err) {
+                    console.log('tai sao loi o day');
+                } else {
+                    resolve(res);
+                }
+            })
+        } catch (e) {
+            reject(e);
+        }
+    }));
+}
 module.exports = Room;

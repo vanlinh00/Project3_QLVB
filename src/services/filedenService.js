@@ -249,6 +249,22 @@ let allvanBanDen= async()=>{
         }
     }));
 }
+
+let deleteFile=(id)=>{
+    return new Promise((async (resolve, reject) => {
+        try {
+            let file = await fileModel.deleteFile(id);
+            if (file!=null) {
+                resolve(true);
+            } else {
+                resolve(null);
+            }
+
+        } catch (e) {
+            resolve(null);
+        }
+    }));
+}
 module.exports = {
     checkFileById: checkFileById,
     addFileText: addFileText,
@@ -264,4 +280,5 @@ module.exports = {
     addUserXulyVanBan: addUserXulyVanBan,
     vanBanDaPheDuyet: vanBanDaPheDuyet,
     allvanBanDen:allvanBanDen,
+    deleteFile:deleteFile,
 }
